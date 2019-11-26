@@ -6,10 +6,11 @@
 char *postfix(char *infix)
 {
 	char *str;
-	str = (char *) malloc(sizeof(char)*strlen(infix)+1);
+	str = (char *) malloc(2*sizeof(char)*strlen(infix)+1);
 	memset(str, 0, sizeof(char)*strlen(infix)+1);
 	struct node* head = NULL; //stack <char> operator;
 	char temp;
+	char space = ' ';
 	int count = 1;
 
 	//push(&top, 'C');
@@ -17,6 +18,7 @@ char *postfix(char *infix)
 			printf("infix[%d]:%c\n",count,*infix);
 		if (97 <= *infix && *infix <= 122) {
 			strncat(str, infix, 1);
+			strcat(str,&space);
 			printf("strncat:%s\n",str);
 		}
 		else {
