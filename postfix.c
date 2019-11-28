@@ -28,6 +28,7 @@ char *postfix(char *infix)
 					temp = top(head);
 					pop(&head);
 					strcat(str,&temp);
+					strcat(str,&space);
 					push(&head, *infix);
 				}
 			}
@@ -38,6 +39,8 @@ char *postfix(char *infix)
 					temp = top(head);
 					pop(&head);
 					strcat(str,&temp);
+					strcat(str,&temp);
+
 				}
 				pop(&head);
 			}
@@ -50,6 +53,7 @@ char *postfix(char *infix)
 		temp = top(head);
 		pop(&head);
 		strcat(str,&temp);
+		strcat(str,&space);
 		printf("%s\n", str);
 	}
 	//free(str);
