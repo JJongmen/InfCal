@@ -25,7 +25,14 @@ char *postfix(char *infix)
 		}
 		else {
 			if (*infix == '+' || *infix == '-') {
-				if (top(head) == '+' || top(head) == '-' || empty(head) || top(head) == '(') push(&head, *infix);
+				if (top(head) == '+' || empty(head) || top(head) == '(') push(&head, *infix);
+				else if (top(head) == '-') {
+					*temp = top(head);
+					pop(&head);
+					strncat(str,temp,1);
+					strncat(str,space,1);
+					push(&head, *infix);
+				}
 				else if (top(head) == '*') {
 					while (top(head) == '*') {
 						*temp = top(head);
@@ -64,9 +71,18 @@ char *postfix(char *infix)
 	return str;
 }
 
+
 int main(int argc, char* argv[]) {
 	char* result;
 	printf("%s\n", result = postfix(argv[1]));
 	free(result);
 	return 0;
 }
+/*
+int main(void) {
+	char* result;
+	printf("%s\n", result = postfix("a-(b+c)"));
+	free(result);
+	return 0;
+}
+*/
