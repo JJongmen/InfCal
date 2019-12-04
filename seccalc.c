@@ -9,7 +9,6 @@ char *seccalc(char *str){
 	front = (char*) malloc(sizeof(char));
 	rear = (char*) malloc(sizeof(char));
 	while (*str != '\0'){
-		printf("str[%d]:%c\n",count,*str);
 		if (97 <= *str && *str <= 122){
 			push(&head, *str);
 		}
@@ -29,6 +28,7 @@ char *seccalc(char *str){
 				push(&head, *ans);
 			}
 		}
+		str++;
 	}
 	free(front);
 	free(rear);
