@@ -1,14 +1,15 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
 #include "calc.h" 
 
 char *postfix(char *infix)
 {
 	char *str;
 	str = (char *) malloc(2*sizeof(char)*strlen(infix)+1);
-	memset(str, 0, 2*sizeof(char)*strlen(infix)+1);
-	printf("str:%s\n", str);
+	//memset(str, 0, 2*sizeof(char)*strlen(infix)+1);
+	printf("str:%s\n", infix);
 	struct node* head = NULL; //stack <char> operator;
 	char* temp;
 	temp = (char *) malloc(sizeof(char));
@@ -19,11 +20,14 @@ char *postfix(char *infix)
 	//push(&top, 'C');
 	while (*infix != '\0') {
 			printf("infix[%d]:%c\n",count,*infix);
-		if (97 <= *infix && *infix <= 122) {
+		if (isdigit(*infix) || *infix == '.') {
 			strncat(str, infix, 1);
-			strncat(str, space, 1);
+			//strncat(str, space, 1);
 		}
-		else {
+		else if (*infix == '+' || *infix == '-' || *infix == '*'
+				|| *infix == '(' || *infix == ')' )
+		{
+			strncat(str,space,1);
 			if (*infix == '+' || *infix == '-') {
 				if (top(head) == '+' || empty(head) || top(head) == '(') push(&head, *infix);
 				else if (top(head) == '-') {
@@ -60,6 +64,7 @@ char *postfix(char *infix)
 		infix++;
 		display(head);
 	}
+	strncat(str,space,1);
 	while (!empty(head)) {
 		*temp = top(head);
 		pop(&head);
