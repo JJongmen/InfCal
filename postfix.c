@@ -19,7 +19,7 @@ char *postfix(char *infix)
 
 	//push(&top, 'C');
 	while (*infix != '\0') {
-			printf("infix[%d]:%c\n",count,*infix);
+		printf("infix[%d]:%c\n",count,*infix);
 		if (isdigit(*infix) || *infix == '.') {
 			strncat(str, infix, 1);
 			//strncat(str, space, 1);
@@ -73,21 +73,22 @@ char *postfix(char *infix)
 		printf("%s\n", str);
 	}
 	//free(str);
+	printf("escape!!\n");
 	return str;
 }
 
-
+/*
 int main(int argc, char* argv[]) {
 	char* result;
 	printf("%s\n", result = postfix(argv[1]));
 	free(result);
 	return 0;
 }
-/*
+*/
 int main(void) {
 	char* result;
-	printf("%s\n", result = postfix("a-(b+c)"));
+	printf("%s\n", result = postfix("123123.3123 + 123 - 123123"));
 	free(result);
 	return 0;
 }
-*/
+
