@@ -44,14 +44,14 @@ int main(int argc, char* argv[]){
 		//       4.중위표기식 다듬기 (0 추가 등)
 		//expr = change(expr);
 		//       5.중위표기식을 후위표기식으로 변환하기
-		//expr = postfix(expr);
+		//postfix(expr);
 		//       6.후위표기식을 계산하기
 		//expr = calc(expr);            
 		//       7.결과 출력하기
 		printf("Result : ");
 		print_list(expr);
 	}
-	free(expr);
+	freeList(expr);
 	return 0;
 }
 
