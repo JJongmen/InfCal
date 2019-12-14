@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 typedef struct _node {
-	int data;
+	char data;
 	struct _node *next;
 }Node, *pNode;
 
@@ -22,7 +22,7 @@ pList makeList() {
 }
 
 //Node를 만드는 함수. Data를 입력 받아서 저장하고, 만든 node를 반환한다.
-pNode makeNode(int data) {
+pNode makeNode(char data) {
 	pNode node = (pNode)malloc(sizeof(Node));
 	node->data = data;
 	node->next = NULL;
@@ -63,7 +63,7 @@ void insertMid(pList L, pNode F, pNode B) {
 	(L->count)++;
 }
 
-int isNode(pList L, int data) {
+int isNode(pList L, char data) {
 	pNode tmp = L->head;
 	while(tmp != NULL) {
 		if (tmp->data == data) {
@@ -75,7 +75,7 @@ int isNode(pList L, int data) {
 	return 0;
 }
 
-pNode searchNode(pList L, int data) {
+pNode searchNode(pList L, char data) {
 	pNode tmp = L->head;
 	while(tmp != NULL) {
 		if(tmp->data == data) {
@@ -102,7 +102,7 @@ void printList(pList L) {
 	pNode tmp = L->head;
 	for (size_t i = 1; i < L->count; i++)
 	{
-		printf("%d -> ", tmp->data);
+		printf("%c -> ", tmp->data);
 		tmp = tmp->next;
 	}
 	printf("%d \n", tmp->data);
@@ -150,7 +150,7 @@ void freeList(pList L) {
 		free(prev);			
 	}
 }
-
+/*
 void main() {
 	pList list = makeList();
 
@@ -163,3 +163,4 @@ void main() {
 	freeList(list);
 	free(list);
 }
+*/
