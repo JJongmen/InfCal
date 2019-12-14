@@ -2,14 +2,14 @@
 #include <stdlib.h>
 
 typedef struct _node {
-	int data;
+	char data;
 	struct _node *next;
 }Node, *pNode;
 
 typedef struct _list {
-	int count;  // 노드의 갯수를 저장한다.
-	pNode head; // 첫번째 노드를 가리킨다.
-	pNode tail; // 마지막 노드를 가리킨다.
+	int count;  // 노드의 갯수
+	pNode head; // 첫번째 노드
+	pNode tail; // 마지막 노드
 }List, *pList;
 
 //Linked List를 만들기 위한 함수. 
@@ -22,7 +22,7 @@ pList makeList() {
 }
 
 //Node를 만드는 함수. Data를 입력 받아서 저장하고, 만든 node를 반환한다.
-pNode makeNode(int data) {
+pNode makeNode(char data) {
 	pNode node = (pNode)malloc(sizeof(Node));
 	node->data = data;
 	node->next = NULL;
@@ -31,7 +31,6 @@ pNode makeNode(int data) {
 
 //집어 넣을 노드인 N을 List L의 가장 처음, 즉 head에 집어 넣는 함수.
 void insertFront(pList L, pNode N) {
-	//이곳에 정답을 쓰시오!
 	if(L->head == NULL) {
 		L->head = N;
 		L->tail = N;
@@ -43,6 +42,7 @@ void insertFront(pList L, pNode N) {
 	}
 	(L->count)++;
 }
+/*
 void insertMid(pList L, pNode F, pNode B) {
 	pNode tmp = L->head;
 	while(tmp != NULL) {
@@ -63,7 +63,7 @@ void insertMid(pList L, pNode F, pNode B) {
 	(L->count)++;
 }
 
-int isNode(pList L, int data) {
+int isNode(pList L, char data) {
 	pNode tmp = L->head;
 	while(tmp != NULL) {
 		if (tmp->data == data) {
@@ -75,7 +75,7 @@ int isNode(pList L, int data) {
 	return 0;
 }
 
-pNode searchNode(pList L, int data) {
+pNode searchNode(pList L, char data) {
 	pNode tmp = L->head;
 	while(tmp != NULL) {
 		if(tmp->data == data) {
@@ -83,7 +83,7 @@ pNode searchNode(pList L, int data) {
 		}
 	}
 }
-
+*/
 void insertBack(pList L, pNode N) {
 	if(L->head == NULL) {
 		L->head = N;
@@ -102,15 +102,14 @@ void printList(pList L) {
 	pNode tmp = L->head;
 	for (size_t i = 1; i < L->count; i++)
 	{
-		printf("%d -> ", tmp->data);
+		printf("%c -> ", tmp->data);
 		tmp = tmp->next;
 	}
-	printf("%d \n", tmp->data);
+	printf("% \n", tmp->data);
 	//printf("Head : %d, Tail : %d", L->head->data, L->tail->data);
 }
 
 void deleteData(pList L, int data) {
-	//이곳에 정답을 쓰시오!
 	pNode tmp = L->head;
 	pNode prev = NULL;
 	for (size_t i = 0; i < L->count; i++) {
@@ -150,7 +149,7 @@ void freeList(pList L) {
 		free(prev);			
 	}
 }
-
+/*
 void main() {
 	pList list = makeList();
 
@@ -163,3 +162,4 @@ void main() {
 	freeList(list);
 	free(list);
 }
+*/

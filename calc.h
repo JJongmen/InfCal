@@ -2,8 +2,29 @@
 #include <string.h>
 #include <stdlib.h>
 #include <limits.h>
+#include <ctype.h>
 
-char *postfix(char *infix);
+typedef struct _node {
+	char data;
+	struct _node *next;
+}Node, *pNode;
+
+typedef struct _list {
+	int count;
+	pNode head;
+	pNode tail;
+}List, *pList;
+
+pList makeList();
+pNode makeNode(char);
+void insertFront(pList, pNode);
+void insertBack(pList, pNode);
+void printList(pList);
+void deleteData(pList,char);
+void freeList(pList);
+
+pList postfix(pList expr);
+
 struct node;
 struct node* new_node(int data);
 int empty(struct node* head);
