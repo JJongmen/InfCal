@@ -1,5 +1,0 @@
-#include<studio>
-{
-	printf("hello");
-}
-
