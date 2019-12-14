@@ -13,7 +13,7 @@ minus( +a , -b ) => add9 +a , +b )
 minus( -a , -b ) => minus( -a , +b ) => - add ( +b , +a )
 */
 
-LINK add ( LINK a , LINK b ) {
+Void add ( LINK a , LINK b ) {
 
 int one,two;
 
