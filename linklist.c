@@ -7,9 +7,9 @@ typedef struct _node {
 }Node, *pNode;
 
 typedef struct _list {
-	int count;  // 노드의 갯수를 저장한다.
-	pNode head; // 첫번째 노드를 가리킨다.
-	pNode tail; // 마지막 노드를 가리킨다.
+	int count;  // 노드의 갯수
+	pNode head; // 첫번째 노드
+	pNode tail; // 마지막 노드
 }List, *pList;
 
 //Linked List를 만들기 위한 함수. 
@@ -31,7 +31,6 @@ pNode makeNode(char data) {
 
 //집어 넣을 노드인 N을 List L의 가장 처음, 즉 head에 집어 넣는 함수.
 void insertFront(pList L, pNode N) {
-	//이곳에 정답을 쓰시오!
 	if(L->head == NULL) {
 		L->head = N;
 		L->tail = N;
@@ -43,6 +42,7 @@ void insertFront(pList L, pNode N) {
 	}
 	(L->count)++;
 }
+/*
 void insertMid(pList L, pNode F, pNode B) {
 	pNode tmp = L->head;
 	while(tmp != NULL) {
@@ -83,7 +83,7 @@ pNode searchNode(pList L, char data) {
 		}
 	}
 }
-
+*/
 void insertBack(pList L, pNode N) {
 	if(L->head == NULL) {
 		L->head = N;
@@ -110,7 +110,6 @@ void printList(pList L) {
 }
 
 void deleteData(pList L, int data) {
-	//이곳에 정답을 쓰시오!
 	pNode tmp = L->head;
 	pNode prev = NULL;
 	for (size_t i = 0; i < L->count; i++) {
