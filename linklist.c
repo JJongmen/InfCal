@@ -139,6 +139,21 @@ void deleteData(pList L, int data) {
 	free(prev);
 }
 
+void deleteHead(pList L) {
+	if (L->head == NULL) ;
+	else if (L->head == L->tail) {
+		L->head = NULL;
+		L->tail = NULL;
+		(L->count)--;
+	}
+	else {
+		L->head = L->head->next;
+		(L->count)--;
+	}
+}
+
+
+
 void freeList(pList L) {
 	pNode tmp = L->head;
 	pNode prev = NULL;
@@ -153,10 +168,10 @@ void freeList(pList L) {
 void main() {
 	pList list = makeList();
 
-	insertFront(list, makeNode(9));
-	insertFront(list, makeNode(7));
-	insertFront(list, makeNode(3));
-	insertFront(list, makeNode(1));
+	insertFront(list, makeNode('9'));
+	insertFront(list, makeNode('7'));
+	insertFront(list, makeNode('3'));
+	insertFront(list, makeNode('1'));
 	printList(list);
 
 	freeList(list);
