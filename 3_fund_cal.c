@@ -9,7 +9,7 @@ add( -a , -b )  => - add( +a , +b )
 
 minus( +a , +b )
 minus( -a , +b ) => - add ( +a , +b )
-minus( +a , -b ) => add9 +a , +b )
+minus( +a , -b ) => add ( +a , +b )
 minus( -a , -b ) => minus( -a , +b ) => - add ( +b , +a )
 */
 
@@ -32,9 +32,9 @@ if ( one == 1 && one == 1){
    		b_point = searchNode(pList a, '.')
    		a_int_len = a_point - 1;
    		b_int_len = b_point - 1;
-   		a_dec_len = b_count - a_point;
+   		a_dec_len = a_count - a_point;
    		b_dec_len = b_count - b_point;
-   		while ( a_int_len = b_int_len) // int 자리수 맞추기
+   		while ( a_int_len != b_int_len) // int 자리수 맞추기
 		{
 	   		if (a_int_len > b_int_len) {
 		   		insertFront(pList b, makeNode('0'));
@@ -45,7 +45,7 @@ if ( one == 1 && one == 1){
 		   		a_int_len++;
 			}
 		}
-   		while (a_dec_len = b_dec_len) // dec 자리수 맞추기
+   		while (a_dec_len != b_dec_len) // dec 자리수 맞추기
 		{
 	   		if (a_dec_len > b_dec_len) {
 		   		insertBack(pList b, makeNode('0'));
@@ -55,25 +55,27 @@ if ( one == 1 && one == 1){
 		   		insertBack(pList a, makeNode('0'));
 		   		a_dec_len++;
 			}
-		}
-		// 함수로 만들거면 만들것 
+		} 
 		 // 999.9990 + 009.9999
-		while (a_head = '\0'){
+		while (a_head != '\0'){
 			if (a_head + b_head - 2 * '0' > 9) {
 				pList pst = makeList();
 				pList answer = makeList();
 				insertBack(pList pst, makeNode('1'));
-				insertBack(pList answer, makeNode(a_head + b_head - 2 * '0''));
-				// head a b 제거
+				insertBack(pList answer, makeNode(a_head + b_head - 2 * '0'));
+				deleteHead(pList a);
+				deleteHead(pList b);
 				}
 			else if {
 				insertBack(pList pst , makeNode('0'));
 				insertBack(pList answer, makeNode(a_head + b_head));
-				//head a b 제거
+				deleteHead(pList a);
+				deleteHead(pList b);
 			}
 			else if (a_head || b_head == '.') {
 				insertBack(pList answer, makeNode('.'));
-				//head a b 제거 
+				deleteHead(pList a);
+				deleteHead(pList b);
 			}
 		}
 		if (pList pst-> head -> data == '0') {
@@ -83,7 +85,7 @@ if ( one == 1 && one == 1){
 			// 포인터 위치 +1 후 . 삽입
 		}
 		if (searchNode(pList pst , '1') == 0) {
-			//answer 값 연결리스트 에서 스트링으로 바꾸고 출력
+			return printList(answer);
 		else if (searchNode(pList pst, '1') != 0) {
 			return add(pList answer, pList pst);
 	}
@@ -113,8 +115,35 @@ one = (a-> head -> data != '-'?1:0);
 two = (b-> head -> data != '-'?1:0);
 
 if ( one == 1 && two == 1) {
-
-//  계산 시작
+	if (a_count > b_count) {
+		count = a_count;
+		a_point = searchNode(pList a, '.')
+		b_point = searchNode(pList b, '.')
+		a_int_len = a_point -1;
+		b_int_len = b_point -1;
+		a_dec_len = a_count - a_point;
+		b_dec_len = b_count - b_point;
+		while (a_int_len = b_int_len) {
+			if (a_int_len > b_int_len) {
+				insertFront(pList b, makeNode('0'));
+				b_int_len++;
+			}
+			else if (a_int_len < b_int_len) {
+				insertFront(pList a, makeNode('0'));
+				a_int_len++;
+			}
+		}
+		while (a_dec_len = b_dec_len) {
+			if (a_dec_len > b_dec_len) {
+				insertBack(pList b, makeNode('0'));
+				b_dec_len++;
+			}
+			else if (a_dec_len < b_dec_len) {
+				insertBack(pList a, makeNode('0'));
+				a_dec_len++;
+			}
+		}
+		//999.9 - 009.9
 
 else if ( one == 1 && two == 0) { // minus( a,-b )
 
