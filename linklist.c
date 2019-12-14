@@ -105,7 +105,7 @@ void printList(pList L) {
 		printf("%c -> ", tmp->data);
 		tmp = tmp->next;
 	}
-	printf("%d \n", tmp->data);
+	printf("% \n", tmp->data);
 	//printf("Head : %d, Tail : %d", L->head->data, L->tail->data);
 }
 
