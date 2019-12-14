@@ -22,6 +22,7 @@ void insertBack(pList, pNode);
 void printList(pList);
 void deleteData(pList,char);
 void freeList(pList);
+void deleteHead(pList);
 
 pList postfix(pList expr);
 
