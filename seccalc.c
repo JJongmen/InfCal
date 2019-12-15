@@ -1,43 +1,91 @@
-#include<stdio.h>
-#include<stdlib.h>
-#inlcude "calc.h"
-char *seccalc(char *str){
+#include"calc.c"
+
+pList seccalc(pList list)//not sure >> noname list making
+{
+	pList = makeList();//noname list create
 	struct node* head = NULL;
-	char* front;
-	char* rear;
-	char final;
-	front = (char*) malloc(sizeof(char));
-	rear = (char*) malloc(sizeof(char));
-	while (*str != '\0'){
-		if (97 <= *str && *str <= 122){
-			push(&head, *str);
+	pNode front = list->head;
+	char temp;
+	while(front!=NULL){
+		if(isdigit(list -> data) || list -> data == '.'){
+			insertBack(pList,makeNode(front->data));
 		}
-		else if( *str = ' ')continue;
-		else if ( *str = '+' || *str = '-' || *str = '*'){
-			front = top(head);
-			pop(&head);
-			rear = top(&head);
-			pop(&head);
-			if( *str = '+'){
-				push(&head, *ans);
+		else if(list->data == ' '){
+			int *temp = &head;// in pointer, head address save
+			push(&head,head_node->next) // in stack, saving this linked list's address of next node
+			pList = makeList(); // new List
+		}
+		else if(list->data == '+' || list->data == '-' || list->data == '*'){
+
+
+			temp = pop(&head);//address of next node from n1
+			pList a = makeList();
+			while()//while current node != \0
+			{
+				insertBack(a,makeNode(temp));
+				node = node->next;
+				temp = node->data;
 			}
-			else if( *str = '-'){
-				push(&head, *ans);
+
+			temp = pop(&head);
+			pList b = makeList();
+			while()//same
+			{
+				insertBack(b,makeNode(temp));
+				node = node->next;
+				temp = node->data;
 			}
-			else if( *str = '*'){
-				push(&head, *ans);
+
+
+			if(list->data == '+')
+			{
+				add( a, b);//add func
+				//return
+				freeList(a);
+				freeList(b);
+				push(&head,head_node->next);//saving this list's next node address
+			}
+			else if(list->data =='-')
+			{
+				minus( a, b);//minus func
+				//return
+				freeList(a);
+				freeList(b);
+				push(&head,head_node->next);//same
+			}
+			else if(list->data = '*')
+			{
+				multiply( a, b);
+				//return
+				freeList(a);
+				freeList(b);
+				push(&head,head_node->next);//same
 			}
 		}
-		str++;
+		list = list->next;
+		display(head);//checking
 	}
-	free(front);
-	free(rear);
-	final = pop(&head);
-	return final;
+	//return list
+	//char?
+	pList clist = makeList();
+	while()//current node != \0
+	{
+		inserBack(clist,makeNOde(temp));
+		node = node->next;
+		temp = node->data;
+	}
+	return clist;
 }
+
+int main(void)
+{
+	printList(seccalc(list));
+	freelist(clist);
+}
+
+
 			
 
-int main(void){
 
-
-}
+			
+		
