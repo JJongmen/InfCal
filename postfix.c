@@ -49,7 +49,6 @@ pList postfix(pList infix)
 			}
 		}
 		start = start->next;
-		display(head);
 	}
 	insertBack(list,makeNode(' '));
 	while (!empty(head)) {
@@ -58,10 +57,10 @@ pList postfix(pList infix)
 		insertBack(list,makeNode(temp));
 		insertBack(list,makeNode(' '));
 	}
-	printf("escape!!\n");
+	removeSpace(list);
 	return list;
 }
-
+/*
 int main(void) {
 	pList infix = makeList();
 	char expr[] = "123+41232";
@@ -75,3 +74,4 @@ int main(void) {
 	free(infix);
 	return 0;
 }
+*/
