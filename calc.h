@@ -27,6 +27,7 @@ void removeSpace(pList);
 void insertMid(pList,int,pNode);
 int isNode(pList,char);
 int searchNode(pList,char);
+int compareList(pList,pList);
 pList postfix(pList expr);
 
 struct node;
