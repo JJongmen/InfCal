@@ -1,3 +1,5 @@
+#include "calc.h"
+
 /*
 
 add( +a , +b)
@@ -12,6 +14,7 @@ minus( -a , +b ) => - add ( +a , +b )
 minus( +a , -b ) => add ( +a , +b )
 minus( -a , -b ) => minus( -a , +b ) => - add ( +b , +a )
 */
+pList minus(pList a, pList b);
 
 pList add(pList a , pList b ) {
 
@@ -21,9 +24,9 @@ pList add(pList a , pList b ) {
 
 	two = (b-> head -> data != '-'?1:0);
 
-	a_head = (a -> head -> data)
+	char a_head = (a -> head -> data);
 
-	b_head = (b -> head -> data)
+	char b_head = (b -> head -> data);
 
 	if ( one == 1 && one == 1){
 		if (searchNode(a, '.') == 0){
@@ -33,12 +36,14 @@ pList add(pList a , pList b ) {
 			insertBack(b, makeNode('.'));
 		}
 	// 자연수일 경우 . 추가
-   		a_point = searchNode(a, '.') 
-   		b_point = searchNode(a, '.')
-   		a_int_len = a_point - 1;
-   		b_int_len = b_point - 1;
-   		a_dec_len = a_count - a_point;
-   		b_dec_len = b_count - b_point;
+		int a_count = a->count;
+		int b_count = b->count;
+   		int a_point = searchNode(a, '.') ;
+   		int b_point = searchNode(a, '.');
+   		int a_int_len = a_point - 1;
+   		int b_int_len = b_point - 1;
+   		int a_dec_len = a_count - a_point;
+   		int b_dec_len = b_count - b_point;
    		while ( a_int_len != b_int_len) // int 자리수 맞추기
 		{
 	   		if (a_int_len > b_int_len) {
@@ -84,11 +89,11 @@ pList add(pList a , pList b ) {
 			}
 		}
 		insertBack(pst, makeNode('0'));
-		pst_Pointer = searchNode(answer, '.');
+		int pst_Pointer = searchNode(answer, '.');
 		insertMid(pst, pst_Pointer, makeNode('.'));
 		// . 삽입 clear
 		if (searchNode(pst , '1') == 0) {
-			return printList(answer);
+			return answer;
 		}
 		else if (isNode(pst, '1') != 0) {
 			return add(answer, pst);
@@ -107,15 +112,17 @@ pList add(pList a , pList b ) {
 	else if ( one == 0 && two == 0) { // add(-a,-b)
 		deleteData(a, '-');
 		deleteData(b, '-');
-		return insertFront(add(a,b), makeNode('-'));	
+		pList ans = add(a,b);
+		insertFront(ans,makeNode('-'));
+		return ans;	
 }
 pList minus(pList a , pList b ) {
 
 	int one,two;
 	one = (a-> head -> data != '-'?1:0);
 	two = (b-> head -> data != '-'?1:0);
-	a_head = (a -> head -> data)
-	b_head = (b -> head -> data)
+	char a_head = (a -> head -> data);
+	char b_head = (b -> head -> data);
 
 	if ( one == 1 && two == 1) {
 		if (searchNode(a, '.') == 0){
@@ -124,19 +131,15 @@ pList minus(pList a , pList b ) {
 		if (searchNode(b, '.') == 0){
 			insertBack(b, makeNode('.'));
 		}
-		// 자연수일 경우 뒤에 . 추가 
-		if (a_count > b_count) {
-			count = a_count;
-		}
-		if (a_count < b_count) {
-			count = b_count;
-		}
-		a_point = searchNode(a, '.')
-		b_point = searchNode(b, '.')
-		a_int_len = a_point -1;
-		b_int_len = b_point -1;
-		a_dec_len = a_count - a_point;
-		b_dec_len = b_count - b_point;
+		// 자연수일 경우 뒤에 . 추가
+		int a_count = a->count;
+		int b_count = b->count;
+		int a_point = searchNode(a, '.');
+		int b_point = searchNode(b, '.');
+		int a_int_len = a_point -1;
+		int b_int_len = b_point -1;
+		int a_dec_len = a_count - a_point;
+		int b_dec_len = b_count - b_point;
 		while (a_int_len = b_int_len) {
 			if (a_int_len > b_int_len) {
 				insertFront(b, makeNode('0'));
@@ -166,28 +169,28 @@ pList minus(pList a , pList b ) {
 			if (a_head - b_head < 0) {
 				insertBack(pst,makeNode('1'));
 				insertBack(answer, makeNode(b_head - a_head + '0'));
-				deletHead(a);
-				deletHead(b);
+				deleteHead(a);
+				deleteHead(b);
 			}
 			else if (a_head - b_head > 0) {
 				insertBack(pst, makeNode('0'));
 				insertBack(answer, makeNode(a_head - b_head +'0'));
-				deletHead(a);
-				deletHead(b);
+				deleteHead(a);
+				deleteHead(b);
 			}
 			else if (a_head && b_head =='.') {
 				insertBack(answer, makeNode('.'));
-				deletHead(a);
-				deletHead(b);
+				deleteHead(a);
+				deleteHead(b);
 			}
 		}	
 		insertBack(pst, makeNode('0'));
-		pst_Pointer = searchNode(answer, '.');
-		insertMid(pst,pst_Pointer, '.');
+		int pst_Pointer = searchNode(answer, '.');
+		insertMid(pst,pst_Pointer,makeNode('.'));
 			// answer - 내림수 빼는 재귀 함수 호출
 			// 내림수 에 1 없을때 그냥 값 도출
 		if (isNode(pst, '1') == 0) {
-			return printList(answer);
+			return answer;
 		}
 		if (isNode(pst, '1') != 0) {
 			return minus(answer, pst);
@@ -195,14 +198,40 @@ pList minus(pList a , pList b ) {
 	}
 	else if ( one == 1 && two == 0) { // minus( a,-b )
 		deleteData(b, '-');
-		return add (a, b);
+		return add(a, b);
 	}		
 	else if ( one == 0 && two == 1) { // minus(-a,b)
 		deleteData(a, '-');
-		return insertFront(add(a, b), makeNode('-'));
+		pList ans = add(a,b);
+		insertFront(ans,makeNode('-'));
+		return ans;
 	}
 	else if ( one == 0 && two == 0) { // minus( -a , +b )
 		deleteData(b, '-');
 		return minus(a, b);
 	}
+}
+
+int main(void) {
+	char expr1[] = "1234.5";
+	char expr2[] = "1.23";
+	pList a = makeList();
+	pList b = makeList();
+	for (int i = 0; i<strlen(expr1);i++) {
+		insertBack(a,makeNode(expr1[i]));
+	}
+	for(int i = 0; i<strlen(expr2);i++) {
+		insertBack(b,makeNode(expr2[i]));
+	}
+	printList(a);
+	printList(b);
+	pList ans = add(a,b);
+	printList(ans);
+	freeList(a);
+	freeList(b);
+	freeList(ans);
+	free(a);
+	free(b);
+	free(ans);
+	return 0;
 }
