@@ -143,7 +143,7 @@ pList minus(pList a , pList b ) {
 		if (isNode(a, '.') == 0){
 			insertBack(a, makeNode('.'));
 		}
-		else if(isNode(b, '.') == 0){
+		if(isNode(b, '.') == 0){
 			insertBack(b, makeNode('.'));
 		}
 		// 자연수일 경우 뒤에 . 추가
@@ -155,24 +155,28 @@ pList minus(pList a , pList b ) {
 		int b_int_len = b_point -1;
 		int a_dec_len = a_count - a_point;
 		int b_dec_len = b_count - b_point;
-		while (a_int_len != b_int_len) {
-			if (a_int_len > b_int_len) {
-				insertFront(b, makeNode('0'));
-				b_int_len++;
-			}	
-			else if (a_int_len < b_int_len) {
-				insertFront(a, makeNode('0'));
-				a_int_len++;
+		if ( a_int_len != b_int_len) {
+			while (a_int_len != b_int_len) {
+				if (a_int_len > b_int_len) {
+					insertFront(b, makeNode('0'));
+					b_int_len++;
+				}	
+				else if (a_int_len < b_int_len) {
+					insertFront(a, makeNode('0'));
+					a_int_len++;
+				}
 			}
 		}
-		while (a_dec_len != b_dec_len) {
-			if (a_dec_len > b_dec_len) {
-				insertBack(b, makeNode('0'));
-				b_dec_len++;
-			}
-			else if (a_dec_len < b_dec_len) {
-				insertBack(a, makeNode('0'));
-				a_dec_len++;
+		if ( a_dec_len != b_dec_len) {
+			while (a_dec_len != b_dec_len) {
+				if (a_dec_len > b_dec_len) {
+					insertBack(b, makeNode('0'));
+					b_dec_len++;
+				}
+				else if (a_dec_len < b_dec_len) {
+					insertBack(a, makeNode('0'));
+					a_dec_len++;
+				}
 			}
 		}
 		if (compareList(a,b) == 0) {
@@ -236,8 +240,8 @@ pList minus(pList a , pList b ) {
 }
 
 int main(void) {
-	char expr1[] = "123.412";
-	char expr2[] = "123.312";
+	char expr1[] = "123";
+	char expr2[] = "-45";
 	pList a = makeList();
 	pList b = makeList();
 	for (int i = 0; i<strlen(expr1);i++) {
@@ -248,7 +252,7 @@ int main(void) {
 	}
 	printList(a);
 	printList(b);
-	pList ans = add(a,b);
+	pList ans = minus(a,b);
 	printList(ans);
 	freeList(a);
 	freeList(b);
