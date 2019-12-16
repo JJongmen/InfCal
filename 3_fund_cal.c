@@ -79,6 +79,12 @@ pList add(pList a , pList b ) {
 				deleteHead(a);
 				deleteHead(b);
 			}
+			else if ((a->head->data - '0' + b->head->data -'0') == 0){
+				insertBack(pst, makeNode('0'));
+				insertBack(answer, makeNode('0'));
+				deleteHead(a);
+				deleteHead(b);
+			}
 			else if ((a->head->data - '0' +b->head->data - '0') == 10){
 				insertBack(pst, makeNode('1'));
 				insertBack(answer, makeNode('0'));
@@ -92,14 +98,15 @@ pList add(pList a , pList b ) {
 			}
 		} 
 		insertBack(pst, makeNode('0'));
-		printList(answer);
 		int answer_Pointer = searchNode(answer,'.');
 		insertMid(pst, answer_Pointer, makeNode('.'));
-		// . 삽입 clear
-		if (searchNode(pst , '1') == 0) {
+		// . 삽입 clea	
+		printList(answer);
+		printList(pst);
+		if (isNode(pst, '1') == 0) {
 			return answer;
 		}
-		else if (isNode(pst, '1') != 0) {
+		else if (isNode(pst, '1') == 1) {
 			return add(answer, pst);
 		}
 	}
@@ -115,8 +122,8 @@ pList add(pList a , pList b ) {
 	}
 
 	else if ( one == 0 && two == 0) { // add(-a,-b)
-		deleteData(a, '-');
-		deleteData(b, '-');
+		deleteHead(a);
+		deleteHead(b);
 		pList ans = add(a,b);
 		insertFront(ans,makeNode('-'));
 		return ans;	
@@ -199,7 +206,7 @@ pList minus(pList a , pList b ) {
 			return answer;
 		}
 		else if (isNode(pst, '1') != 0) {
-			return minus(answer, pst);
+			return add(answer, pst);
 		}
 	}
 	else if ( one == 1 && two == 0) { // minus( a,-b )
@@ -219,8 +226,8 @@ pList minus(pList a , pList b ) {
 }
 
 int main(void) {
-	char expr1[] = "234.56";
-	char expr2[] = "129.999";
+	char expr1[] = "-24.56";
+	char expr2[] = "-129.999";
 	pList a = makeList();
 	pList b = makeList();
 	for (int i = 0; i<strlen(expr1);i++) {
