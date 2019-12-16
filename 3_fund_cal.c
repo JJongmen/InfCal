@@ -26,6 +26,12 @@ a_head = (a -> head -> data)
 b_head = (b -> head -> data)
 
 if ( one == 1 && one == 1){
+	if (searchNode(pList a, '.') == 0){
+		insertBack(pList a, makeNode('.'));
+	}
+	if (searchNode(pList b, '.') == 0){
+		insertBack(pList b, makeNode('.'));
+	}
 	if (a_count > b_count){
    		count = a_count;
    		a_point = searchNode(pList a, '.') 
