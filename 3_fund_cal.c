@@ -174,7 +174,10 @@ pList minus(pList a , pList b ) {
 			}
 		}
 		if (compareList(a,b) == 0) {
-			insertFront(minus(b, a),makeNode('-'));
+			pList ans = minus(b,a);
+			insertFront(ans,makeNode('-'));
+			return ans;
+
 		}
 		pList pst = makeList();
 		pList answer = makeList();
@@ -206,7 +209,6 @@ pList minus(pList a , pList b ) {
 		insertBack(pst, makeNode('0'));
 		int answer_Pointer = searchNode(answer, '.');
 		insertMid(pst,answer_Pointer,makeNode('.'));
-		printList(pst);
 		printList(answer);
 		if (isNode(pst, '1') == 0) {
 			removeZero(answer);
