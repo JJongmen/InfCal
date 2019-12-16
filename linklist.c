@@ -42,46 +42,30 @@ void insertFront(pList L, pNode N) {
 	}
 	(L->count)++;
 }
-/*
-void insertMid(pList L, pNode F, pNode B) {
-	pNode tmp = L->head;
-	while(tmp != NULL) {
-		if (tmp == F) {
-			if(L->tail == F) {
-				F->next = B;
-				B->next = NULL;
-				L->tail = B;
-			}
-			else {
-				B->next = F->next;
-				tmp->next = B;
-			}
-			break;
-		}
-		tmp = tmp->next;
-	}
-	(L->count)++;
-}
+
 int isNode(pList L, char data) {
 	pNode tmp = L->head;
 	while(tmp != NULL) {
 		if (tmp->data == data) {
-			free(tmp);
 			return 1;
 		}
+		tmp=tmp->next;
 	}
-	free(tmp);
 	return 0;
 }
-pNode searchNode(pList L, char data) {
+
+int searchNode(pList L, char data) {
 	pNode tmp = L->head;
+	int count = 1;
 	while(tmp != NULL) {
 		if(tmp->data == data) {
-			return tmp;
+			return count;
 		}
+		tmp = tmp->next;
+		count++;
 	}
 }
-*/
+
 void insertBack(pList L, pNode N) {
 	if(L->head == NULL) {
 		L->head = N;
@@ -226,7 +210,8 @@ void main() {
 		insertBack(list, makeNode(expr[i]));
 	}
 	printList(list);
-	insertMid(list, 3,makeNode('4'));
+	printf("%d %d %d\n",isNode(list,'1'),isNode(list,'4'),isNode(list,'6'));
+	printf("%d\n",searchNode(list,'3'));
 	printList(list);
 	freeList(list);
 	free(list);
