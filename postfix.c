@@ -60,18 +60,3 @@ pList postfix(pList infix)
 	removeSpace(list);
 	return list;
 }
-/*
-int main(void) {
-	pList infix = makeList();
-	char expr[] = "123+41232";
-	printf("expr : %s\n",expr);
-	for (int i = 0; i<strlen(expr); i++) {
-		insertBack(infix,makeNode(expr[i]));
-	}
-	printList(infix);
-	printList(postfix(infix));
-	freeList(infix);
-	free(infix);
-	return 0;
-}
-*/

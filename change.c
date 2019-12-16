@@ -9,7 +9,7 @@ void change(pList expr) {
 			insertFront(expr,makeNode('0'));
 		}
 		else if(curr->next != NULL && curr->data=='(' && (curr->next->data=='-' || curr->next->data == '+')) {
-			insertMid(expr,count+1,makeNode('0'));
+			insertMid(expr,count,makeNode('0'));
 		}
 		curr = curr->next;
 		count++;

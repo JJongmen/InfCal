@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 typedef struct _node {
 	char data;
 	struct _node *next;
@@ -84,10 +85,10 @@ void printList(pList L) {
 	pNode tmp = L->head;
 	for (size_t i = 1; i < L->count; i++)
 	{
-		printf("%c -> ", tmp->data);
+		printf("%c", tmp->data);
 		tmp = tmp->next;
 	}
-	printf("%c \n", tmp->data);
+	printf("%c\n", tmp->data);
 	//printf("Head : %d, Tail : %d", L->head->data, L->tail->data);
 }
 

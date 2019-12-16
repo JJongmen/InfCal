@@ -30,17 +30,23 @@ int check(pList expr){
 				if ((curr->next->next->data == '(' || curr->next->next->data == ')' || isdigit(curr->next->next->data)) && curr->next->next != NULL) return 0;
 			}
 		}
-		if (curr->data == '0')
-			if (curr->next != NULL && curr->next->data != '.') return 0;
+		if (curr->data == '0'){
+			if (curr->next != NULL && curr->next->data == '.'){
+				if (curr->next->next != NULL && (!isdigit(curr->next->next->data))) return 0;
+			}
+		}
 		if (curr->data == '('){
+			dot = 0;
 			left++;
 		}
 		if (curr->data == ')'){
+			dot = 0;
 			right++;
 			if (right >left) return 0;
 		}
 		if (curr->data == '+' || curr->data == '-' || curr->data == '*'){
 			operator++;
+			dot = 0;
 			if (operator >= 2) return 0;
 			if (curr->next != NULL && curr->next->data == ' '){
 				if ((curr->next->next->data == '+' || curr->next->next->data == '-' || curr->next->next->data == '*') && curr->next->next != NULL) return 0;
@@ -55,3 +61,14 @@ int check(pList expr){
 	if (left != right) return 0;
 	else return 1;
 }
+/*
+int main(void) {
+	char expr[] = "120.123-10.12";
+	pList list = makeList();
+	for (int i =0; i<strlen(expr);i++) {
+		insertBack(list, makeNode(expr[i]));
+	}
+	printf("%d \n",check(list));
+	return 0;
+}
+*/

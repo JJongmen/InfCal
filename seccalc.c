@@ -5,11 +5,78 @@
 #include <ctype.h>
 #include "calc.h"
 
-pList multiply(pList a, pList b) {
-	pList ans = makeList();
-	insertBack(ans,makeNode('1'));
-	insertBack(ans,makeNode('2'));
+int power(int a, int b) {
+	double ans = 1;
+	while (b > 0) {
+		ans *= a;
+		b--;
+	}
 	return ans;
+}
+
+pList add(pList,pList);
+pList multiply(pList a, pList b) {
+	/*int one,two;
+	int cnt;
+	int a_dot = 0;
+	int b_dot = 0;
+	one = (a->head->data != '-'?1:0);
+	two = (b->head->data != '-'?1:0);
+	if(one == 1 && two == 1){
+		if(isNode(a,'.')) {
+			a_dot = a->count - searchNode(a,'.');
+			deleteData(a,'.');
+		}
+		if(isNode(b,'.')) {
+			b_dot = b->count - searchNode(b,'.');
+			deleteData(b,'.');
+		}
+		pNode curr = b->head;
+		for(int i=0;i<b->count;i++){
+			cnt += (curr->data - '0')*power(10,b->count-(i+1));
+			curr = curr->next;
+		}
+		printf("%d\n",cnt);
+		printList(a);
+		printList(b);
+		pList temp = add(a,b);
+			while(cnt > 1) { // '2'
+				pList temp = add(a,a);
+				cnt--;
+				printList(temp);
+		}*/
+		/*int dotPos = a_dot + b_dot;
+		if(dotPos == 0) {
+			return temp;
+		}
+		else {
+			insertMid(temp,temp->count - dotPos, makeNode('.'));
+			return temp;
+		}
+	}
+	else if(one == 1 && two == 0) {
+		deleteHead(b);
+		pList answer = multiply(a,b);
+		insertFront(answer,makeNode('-'));
+		return answer;
+
+	}
+	else if(one == 0 && two == 1) {
+		deleteHead(a);
+		pList answer = multiply(a,b);
+		insertFront(answer,makeNode('-'));
+		return answer;
+
+	}
+	else if(one == 0 && two == 0) {
+		deleteHead(a);
+		deleteHead(b);
+		pList answer = multiply(a,b);
+		return answer;
+	}*/
+	pList L = makeList();
+	insertBack(L,makeNode('1'));
+	return L;
 }
 pList minus(pList a, pList b);
 
@@ -106,6 +173,7 @@ pList add(pList a , pList b ) {
 		// . 삽입 clea	
 		if (isNode(pst, '1') == 0) {
 			removeZero(answer);
+			if(answer->head->data == '.') insertFront(answer,makeNode('0'));
 		if(answer->tail->data == '.') deleteTail(answer);
 			return answer;
 		}
@@ -215,6 +283,7 @@ pList minus(pList a , pList b ) {
 		insertMid(pst,answer_Pointer,makeNode('.'));
 		if (isNode(pst, '1') == 0) {
 			removeZero(answer);
+			if(answer->head->data == '.') insertFront(answer,makeNode('0'));
 			printf("[%c]\n",answer->tail->data);
 			if(answer->tail->data == '.') deleteTail(answer);
 			return answer;
@@ -245,7 +314,6 @@ pList seccalc(pList expr) {
 	int word = 0;
 	pList tempList,a,b;
 	while(curr != NULL) {
-		printf("[%c]\n",curr->data);
 		pList temp;
 		if((isdigit(curr->data) || curr->data == '.') && word == 0) {
 			tempList = makeList();
@@ -282,7 +350,28 @@ pList seccalc(pList expr) {
 		curr = curr->next;
 	}
 	pList ans = topL(head); //stack top
-	printf("answer : ");
-	printList(ans);
 	return ans;
-}
+}/*
+int main(void) {
+	char expr1[] = "8";
+	char expr2[] = "8";
+	pList a = makeList();
+	pList b = makeList();
+	for (int i = 0; i<strlen(expr1);i++) {
+		insertBack(a,makeNode(expr1[i]));
+	}
+	for(int i = 0; i<strlen(expr2);i++) {
+		insertBack(b,makeNode(expr2[i]));
+	}
+	printList(a);
+	printList(b);
+	pList ans = add(a,b);
+	printList(ans);
+	freeList(a);
+	freeList(b);
+	freeList(ans);
+	free(a);
+	free(b);
+	free(ans);
+	return 0;
+}*/

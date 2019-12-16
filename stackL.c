@@ -1,9 +1,16 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <limits.h>
+#include <ctype.h>
 #include "calc.h"
 
+/*
 struct nodeL { 
 	pList data; 
 	struct nodeL* next; 
-}; 
+};
+*/
 
 struct nodeL* new_nodeL(pList L) 
 { 
@@ -16,7 +23,6 @@ struct nodeL* new_nodeL(pList L)
 int emptyL(struct nodeL* head) 
 { 
 	if(!head){ 
-		printf("stack is empty\n");
 		return 1;
 	}
 	return 0; 
@@ -27,14 +33,12 @@ void pushL(struct nodeL** head, pList L)
 	struct nodeL* temp_node = new_nodeL(L); 
 	temp_node->next = *head; 
 	*head = temp_node; 
-	printf("PUSH: ");
-	printList(L);
 } 
 
 pList popL(struct nodeL** head) 
 { 
 	pList L = makeList();
-	insertBack(L,makeNode('#'));
+	insertBack(L,makeNode(' '));
 	if (emptyL(*head)){
 		return L;
 	}
@@ -42,9 +46,6 @@ pList popL(struct nodeL** head)
 	*head = (*head)->next; 
 	pList element = temp->data; 
 	free(temp); 
-
-	printf("POP: ");
-	printList(element);
 	return element; 
 } 
 
@@ -73,32 +74,7 @@ void displayL(struct nodeL* head){
 	printf("\n");
 	return;
 }
-/*
-int main() 
-{ 
-	struct node* head = NULL; 
 
-	push(&head, 10); 
-	push(&head, 20); 
-	push(&head, 30); 
-
-	display(head);
-
-	pop(&head); 
-
-	display(head);
-
-	printf("TOP: [%d]\n", top(head)); 
-	
-	display(head);
-
-	pop(&head); 
-	pop(&head); 
-	pop(&head); 
-
-	return 0; 
-}
-*/
 /*
 int main() {
 	struct node* head = NULL;

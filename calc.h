@@ -15,7 +15,7 @@ typedef struct _list {
 	pNode tail;
 }List, *pList;
 
-pList makeList();
+pList makeList(void);
 pNode makeNode(char);
 void insertFront(pList, pNode);
 void insertBack(pList, pNode);
@@ -39,3 +39,20 @@ int top(struct node* head);
 void display(struct node* head);
 
 int check(pList);
+pList seccalc(pList);
+void change(pList);
+
+struct nodeL {
+	pList data;
+	struct nodeL* next;
+};
+struct nodeL* new_nodeL(pList);
+int emptyL(struct nodeL*);
+void pushL(struct nodeL**,pList);
+pList popL(struct nodeL**);
+pList topL(struct nodeL*);
+void displayL(struct nodeL*);
+
+pList add(pList,pList);
+pList minus(pList,pList);
+pList multiply(pList,pList);
