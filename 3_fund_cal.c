@@ -24,11 +24,7 @@ pList add(pList a , pList b ) {
 
 	two = (b-> head -> data != '-'?1:0);
 
-	char a_head = (a -> head -> data);
-
-	char b_head = (b -> head -> data);
-
-	if ( one == 1 && one == 1){
+	if ( one == 1 && two == 1){
 		if (searchNode(a, '.') == 0){
 			insertBack(a, makeNode('.'));
 		}
@@ -39,7 +35,7 @@ pList add(pList a , pList b ) {
 		int a_count = a->count;
 		int b_count = b->count;
    		int a_point = searchNode(a, '.') ;
-   		int b_point = searchNode(a, '.');
+   		int b_point = searchNode(b, '.');
    		int a_int_len = a_point - 1;
    		int b_int_len = b_point - 1;
    		int a_dec_len = a_count - a_point;
@@ -69,28 +65,36 @@ pList add(pList a , pList b ) {
 		 // 999.9990 + 009.9999
 		pList pst = makeList();
 		pList answer = makeList();
-		while (a_head != '\0'){
-			if (a_head - '0' + b_head - '0'  > 9) {
+		// 123.40   001.23
+		printList(a);
+		printList(b);
+		while (a->head != NULL){
+			if (a->head->data - '0' + b->head->data - '0'  > 9) {
 				insertBack(pst, makeNode('1'));
-				insertBack(answer, makeNode(a_head + b_head - 2 * '0'));
+				insertBack(answer, makeNode(a->head->data - '0' + b->head->data - '0' -10 + '0'));
 				deleteHead(a);
 				deleteHead(b);
 			}
-			else if (a_head - '0' + b_head - '0'  < 10) {
+			else if (a->head->data - '0' + b->head->data - '0'  < 10) {
 				insertBack(pst , makeNode('0'));
-				insertBack(answer, makeNode(a_head + b_head));
+				insertBack(answer, makeNode(a->head->data -'0' + b->head->data-'0'+'0'));
 				deleteHead(a);
 				deleteHead(b);
 			}
-			else if (a_head && b_head == '.') {
+			else if (a->head->data == '.') {
 				insertBack(answer, makeNode('.'));
 				deleteHead(a);
 				deleteHead(b);
 			}
-		}
+		} 
+		printList(answer); //test
+		printList(pst); //test
 		insertBack(pst, makeNode('0'));
-		int pst_Pointer = searchNode(answer, '.');
-		insertMid(pst, pst_Pointer, makeNode('.'));
+		printList(answer);
+		int answer_Pointer = searchNode(answer,'.');
+		printf("%d\n",answer_Pointer); //test
+		insertMid(pst, answer_Pointer, makeNode('.'));
+		printList(pst); //
 		// . 삽입 clear
 		if (searchNode(pst , '1') == 0) {
 			return answer;
@@ -106,6 +110,7 @@ pList add(pList a , pList b ) {
 	}
 	else if ( one == 0 && two == 1) { // add(-a,b)
 		deleteData(a, '-');
+		printf("-----------------\n");
 		return minus(b,a);
 	}
 
@@ -115,6 +120,7 @@ pList add(pList a , pList b ) {
 		pList ans = add(a,b);
 		insertFront(ans,makeNode('-'));
 		return ans;	
+	}
 }
 pList minus(pList a , pList b ) {
 
@@ -128,7 +134,7 @@ pList minus(pList a , pList b ) {
 		if (searchNode(a, '.') == 0){
 			insertBack(a, makeNode('.'));
 		}
-		if (searchNode(b, '.') == 0){
+		else if(searchNode(b, '.') == 0){
 			insertBack(b, makeNode('.'));
 		}
 		// 자연수일 경우 뒤에 . 추가
@@ -165,20 +171,20 @@ pList minus(pList a , pList b ) {
 			// head 에서 따와서 빼기
 		pList pst = makeList();
 		pList answer = makeList();
-		while ( a_head != '\0') {
-			if (a_head - b_head < 0) {
+		while (a->head != NULL) {
+			if (a->head->data - b->head->data < 0) {
 				insertBack(pst,makeNode('1'));
-				insertBack(answer, makeNode(b_head - a_head + '0'));
+				insertBack(answer, makeNode(b->head->data - a->head->data + '0'));
 				deleteHead(a);
 				deleteHead(b);
 			}
-			else if (a_head - b_head > 0) {
+			else if (a->head->data - b->head->data > 0) {
 				insertBack(pst, makeNode('0'));
-				insertBack(answer, makeNode(a_head - b_head +'0'));
+				insertBack(answer, makeNode(a->head->data - b->head->data +'0'));
 				deleteHead(a);
 				deleteHead(b);
 			}
-			else if (a_head && b_head =='.') {
+			else if (a->head->data && b->head->data =='.') {
 				insertBack(answer, makeNode('.'));
 				deleteHead(a);
 				deleteHead(b);
@@ -192,7 +198,7 @@ pList minus(pList a , pList b ) {
 		if (isNode(pst, '1') == 0) {
 			return answer;
 		}
-		if (isNode(pst, '1') != 0) {
+		else if (isNode(pst, '1') != 0) {
 			return minus(answer, pst);
 		}
 	}
@@ -213,8 +219,8 @@ pList minus(pList a , pList b ) {
 }
 
 int main(void) {
-	char expr1[] = "1234.5";
-	char expr2[] = "1.23";
+	char expr1[] = "234.56";
+	char expr2[] = "12.6";
 	pList a = makeList();
 	pList b = makeList();
 	for (int i = 0; i<strlen(expr1);i++) {
