@@ -1,91 +1,61 @@
-#include"calc.c"
+#include "calc.c"
 
-pList seccalc(pList list)//not sure >> noname list making
-{
-	pList = makeList();//noname list create
-	struct node* head = NULL;
-	pNode front = list->head;
-	char temp;
-	while(front!=NULL){
-		if(isdigit(list -> data) || list -> data == '.'){
-			insertBack(pList,makeNode(front->data));
-		}
-		else if(list->data == ' '){
-			int *temp = &head;// in pointer, head address save
-			push(&head,head_node->next) // in stack, saving this linked list's address of next node
-			pList = makeList(); // new List
-		}
-		else if(list->data == '+' || list->data == '-' || list->data == '*'){
-
-
-			temp = pop(&head);//address of next node from n1
-			pList a = makeList();
-			while()//while current node != \0
-			{
-				insertBack(a,makeNode(temp));
-				node = node->next;
-				temp = node->data;
-			}
-
-			temp = pop(&head);
-			pList b = makeList();
-			while()//same
-			{
-				insertBack(b,makeNode(temp));
-				node = node->next;
-				temp = node->data;
-			}
-
-
-			if(list->data == '+')
-			{
-				add( a, b);//add func
-				//return
-				freeList(a);
-				freeList(b);
-				push(&head,head_node->next);//saving this list's next node address
-			}
-			else if(list->data =='-')
-			{
-				minus( a, b);//minus func
-				//return
-				freeList(a);
-				freeList(b);
-				push(&head,head_node->next);//same
-			}
-			else if(list->data = '*')
-			{
-				multiply( a, b);
-				//return
-				freeList(a);
-				freeList(b);
-				push(&head,head_node->next);//same
-			}
-		}
-		list = list->next;
-		display(head);//checking
-	}
-	//return list
-	//char?
-	pList clist = makeList();
-	while()//current node != \0
-	{
-		inserBack(clist,makeNOde(temp));
-		node = node->next;
-		temp = node->data;
-	}
-	return clist;
+pList add(pList a, pList b) {
+	pList ans = makeList();
+	insertBack(ans,makeNode('1'));
+	return ans;
 }
-
-int main(void)
-{
-	printList(seccalc(list));
-	freelist(clist);
+pList minus(pList a, pList b) {
+	pList ans = makeList();
+	insertBack(ans,makeNode('1'));
+	return ans;
 }
-
-
-			
-
-
-			
-		
+pList multiply(pList a, pList b) {
+	pList ans = makeList();
+	insertBack(ans,makeNode('1'));
+	return ans;
+}
+pList seccalc(pList expr) {
+	pNode curr = expr->head;
+	struct nodeL* head = NULL; //make stack
+	int word = 0;
+	pList tempList = makeList();
+	while(curr != NULL) {
+		if((isdigit(curr->data) || curr->data == '.') && word == 0) {
+			pList tempList = makeList();
+			insertBack(tempList, makeNode(curr->data));
+			word = 1;
+		}
+		else if((isdigit(curr->data) || curr->data == '.') && word == 1) {
+			insertBack(tempList, makeNode(curr->data));
+		}
+		else if(isspace(curr->data)) {
+			pList pushList = tempList;
+			pushL(&head,pushList);//stack push
+			word = 0;
+			freeList(tempList);
+			free(tempList);
+		}
+		else if(curr->data == '+') {
+			pList a = popL(&head); //pop
+			pList b = popL(&head); //pop
+			pList temp = add(a,b);
+			pushL(&head, temp);//push temp
+		}
+		else if(curr->data == '-') {
+			pList b = popL(&head); //pop
+			pList a = popL(&head); //pop
+			pList temp = minus(a,b);
+			pushL(&head, temp);//push temp
+		}
+		else if(curr->data == '*') {
+			pList a = popL(&head); //pop
+			pList b = popL(&head); //pop
+			pList temp = multiply(a,b);
+			pushL(&head, temp); //push temp
+		}
+		curr = curr->next;
+	}
+	pList ans = topL(head); //stack top
+	return ans;
+}
