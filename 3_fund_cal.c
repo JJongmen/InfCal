@@ -25,16 +25,16 @@ pList add(pList a , pList b ) {
 	two = (b-> head -> data != '-'?1:0);
 
 	if ( one == 1 && two == 1){
-		if (searchNode(a, '.') == 0){
+		if (isNode(a, '.') == 0){
 			insertBack(a, makeNode('.'));
 		}
-		if (searchNode(b, '.') == 0){
+		else if (isNode(b, '.') == 0){
 			insertBack(b, makeNode('.'));
 		}
 	// 자연수일 경우 . 추가
 		int a_count = a->count;
 		int b_count = b->count;
-   		int a_point = searchNode(a, '.') ;
+   		int a_point = searchNode(a, '.');
    		int b_point = searchNode(b, '.');
    		int a_int_len = a_point - 1;
    		int b_int_len = b_point - 1;
@@ -65,36 +65,36 @@ pList add(pList a , pList b ) {
 		 // 999.9990 + 009.9999
 		pList pst = makeList();
 		pList answer = makeList();
-		// 123.40   001.23
-		printList(a);
-		printList(b);
+		// 123.40   001.2
 		while (a->head != NULL){
-			if (a->head->data - '0' + b->head->data - '0'  > 9) {
+			if ((a->head->data - '0' + b->head->data - '0') > 9) {
 				insertBack(pst, makeNode('1'));
 				insertBack(answer, makeNode(a->head->data - '0' + b->head->data - '0' -10 + '0'));
 				deleteHead(a);
 				deleteHead(b);
 			}
-			else if (a->head->data - '0' + b->head->data - '0'  < 10) {
+			else if ((a->head->data - '0' + b->head->data - '0')  < 10 && a->head->data - '0' + b->head->data - '0' > 0) {
 				insertBack(pst , makeNode('0'));
 				insertBack(answer, makeNode(a->head->data -'0' + b->head->data-'0'+'0'));
 				deleteHead(a);
 				deleteHead(b);
 			}
-			else if (a->head->data == '.') {
+			else if ((a->head->data - '0' +b->head->data - '0') == 10){
+				insertBack(pst, makeNode('1'));
+				insertBack(answer, makeNode('0'));
+				deleteHead(a);
+				deleteHead(b);
+			}
+			else if (a->head->data == '.' && b->head->data  == '.') {
 				insertBack(answer, makeNode('.'));
 				deleteHead(a);
 				deleteHead(b);
 			}
 		} 
-		printList(answer); //test
-		printList(pst); //test
 		insertBack(pst, makeNode('0'));
 		printList(answer);
 		int answer_Pointer = searchNode(answer,'.');
-		printf("%d\n",answer_Pointer); //test
 		insertMid(pst, answer_Pointer, makeNode('.'));
-		printList(pst); //
 		// . 삽입 clear
 		if (searchNode(pst , '1') == 0) {
 			return answer;
@@ -220,7 +220,7 @@ pList minus(pList a , pList b ) {
 
 int main(void) {
 	char expr1[] = "234.56";
-	char expr2[] = "12.6";
+	char expr2[] = "129.999";
 	pList a = makeList();
 	pList b = makeList();
 	for (int i = 0; i<strlen(expr1);i++) {
