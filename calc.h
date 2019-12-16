@@ -25,6 +25,8 @@ void freeList(pList);
 void deleteHead(pList);
 void removeSpace(pList);
 void insertMid(pList,int,pNode);
+int isNode(pList,char);
+int searchNode(pList,char);
 pList postfix(pList expr);
 
 struct node;
