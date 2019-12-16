@@ -69,10 +69,10 @@ pList add(pList a , pList b ) {
 			}
 		}
 		 // 999.9990 + 009.9999
+		pList pst = makeList();
+		pList answer = makeList();
 		while (a_head != '\0'){
 			if (a_head - '0' + b_head - '0'  > 9) {
-				pList pst = makeList();
-				pList answer = makeList();
 				insertBack(pList pst, makeNode('1'));
 				insertBack(pList answer, makeNode(a_head + b_head - 2 * '0'));
 				deleteHead(pList a);
@@ -90,6 +90,7 @@ pList add(pList a , pList b ) {
 				deleteHead(pList b);
 			}
 		}
+		insertBack(pst, makeNode('0'));
 		// . 삽입
 
 		if (searchNode(pList pst , '1') == 0) {
@@ -163,31 +164,32 @@ pList minus(pList a , pList b ) {
 				a_dec_len++;
 			}
 		}
-	}
 		//999.9 - 009.9
 		// a 와 b 중 누가 더 큰지 구별 해야함
-			// head 에서 따와서 빼기 
-	while ( a_head != '\0') {
+			// head 에서 따와서 빼기
 		pList pst = makeList();
 		pList answer = makeList();
-		if (a_head - b_head < 0) {
-			insertBack(pst,makeNode('1'));
-			insertBack(answer, makeNode(b_head - a_head + '0'));
-			deletHead(a);
-			deletHead(b);
-		}
-		else if (a_head - b_head > 0) {
-			insertBack(pst, makeNode('0'));
-			insertBack(answer, makeNode(a_head - b_head +'0'));
-			deletHead(a);
-			deletHead(b);
-		}
-		else if (a_head && b_head =='.') {
-			insertBack(pst, makeNode('.'));
-			deletHead(a);
-			deletHead(b);
-		}
-	}
+		while ( a_head != '\0') {
+			if (a_head - b_head < 0) {
+				insertBack(pst,makeNode('1'));
+				insertBack(answer, makeNode(b_head - a_head + '0'));
+				deletHead(a);
+				deletHead(b);
+			}
+			else if (a_head - b_head > 0) {
+				insertBack(pst, makeNode('0'));
+				insertBack(answer, makeNode(a_head - b_head +'0'));
+				deletHead(a);
+				deletHead(b);
+			}
+			else if (a_head && b_head =='.') {
+				insertBack(answer, makeNode('.'));
+				deletHead(a);
+				deletHead(b);
+			}
+		}	
+		insertBack(pst, makeNode('0'));
+		// pst 맨뒤 0 추가해 자리수 맞추기
 			// answer - 내림수 빼는 재귀 함수 호출
 			// 내림수 에 1 없을때 그냥 값 도출
 		if (searchNode(pst, '1') == 0) {
@@ -196,7 +198,7 @@ pList minus(pList a , pList b ) {
 		if (searchNode(pst, '1') != 0) {
 			return minus(answer, pst);
 		}
-}
+	}
 	else if ( one == 1 && two == 0) { // minus( a,-b )
 		deleteData( pList b, char '-');
 		return add (a, b);
