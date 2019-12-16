@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <string.h>
 typedef struct _node {
 	char data;
 	struct _node *next;
@@ -62,7 +62,6 @@ void insertMid(pList L, pNode F, pNode B) {
 	}
 	(L->count)++;
 }
-
 int isNode(pList L, char data) {
 	pNode tmp = L->head;
 	while(tmp != NULL) {
@@ -74,7 +73,6 @@ int isNode(pList L, char data) {
 	free(tmp);
 	return 0;
 }
-
 pNode searchNode(pList L, char data) {
 	pNode tmp = L->head;
 	while(tmp != NULL) {
@@ -105,7 +103,7 @@ void printList(pList L) {
 		printf("%c -> ", tmp->data);
 		tmp = tmp->next;
 	}
-	printf("% \n", tmp->data);
+	printf("%c \n", tmp->data);
 	//printf("Head : %d, Tail : %d", L->head->data, L->tail->data);
 }
 
@@ -142,17 +140,72 @@ void deleteData(pList L, int data) {
 void deleteHead(pList L) {
 	if (L->head == NULL) ;
 	else if (L->head == L->tail) {
+		free(L->head);
 		L->head = NULL;
 		L->tail = NULL;
 		(L->count)--;
 	}
 	else {
+		free(L->head);
 		L->head = L->head->next;
 		(L->count)--;
 	}
 }
 
+void deleteTail(pList L) {
+	if (L->head == NULL) ;
+	else if (L->head == L->tail) {
+		free(L->head);
+		L->head = NULL;
+		L->tail = NULL;
+		(L->count)--;
+	}
+	else {
+		pNode temp = L->head;
+		while ((temp->next) != (L->tail)) {
+			temp = temp->next;
+		}
+		free(temp->next);
+		temp->next = NULL;
+		L->tail = temp;
+		(L->count)--;
+	}
+}
 
+void removeSpace(pList L) {
+	pNode temp = L->head;
+	pNode prev;
+	while (L->head->data == ' ') {
+		deleteHead(L);
+	}
+	while (L->tail->data == ' ') {
+		deleteTail(L);
+	}
+	while (temp != L->tail) {
+		if (temp->data == ' ' && temp->next->data == ' ') {
+			prev->next = temp->next;
+			free(temp);
+			(L->count)--;
+			temp = prev->next;
+		}
+		else {
+			prev = temp;
+			temp = temp->next;
+		}
+	}	
+}
+
+void insertMid(pList L,int index,pNode N) {
+	pNode temp = L->head;
+	for (int i = 1; i<index; i++) {
+		temp = temp->next;
+	}
+	N->next = temp->next;
+	temp->next = N;
+	(L->count)++;
+}
+
+		// 1 2 3 4 5
 
 void freeList(pList L) {
 	pNode tmp = L->head;
@@ -164,16 +217,17 @@ void freeList(pList L) {
 		free(prev);			
 	}
 }
+
 /*
 void main() {
 	pList list = makeList();
-
-	insertFront(list, makeNode('9'));
-	insertFront(list, makeNode('7'));
-	insertFront(list, makeNode('3'));
-	insertFront(list, makeNode('1'));
+	char expr[] = "12356";
+	for (int i = 0; i<strlen(expr); i++) {
+		insertBack(list, makeNode(expr[i]));
+	}
 	printList(list);
-
+	insertMid(list, 3,makeNode('4'));
+	printList(list);
 	freeList(list);
 	free(list);
 }
