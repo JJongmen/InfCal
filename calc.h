@@ -23,7 +23,8 @@ void printList(pList);
 void deleteData(pList,char);
 void freeList(pList);
 void deleteHead(pList);
-
+void removeSpace(pList);
+void insertMid(pList,int,pNode);
 pList postfix(pList expr);
 
 struct node;
@@ -33,3 +34,5 @@ void push(struct node** head, int data);
 int pop(struct node** head);
 int top(struct node* head);
 void display(struct node* head);
+
+int check(pList);
