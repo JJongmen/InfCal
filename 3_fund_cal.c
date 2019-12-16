@@ -28,7 +28,7 @@ pList add(pList a , pList b ) {
 		if (isNode(a, '.') == 0){
 			insertBack(a, makeNode('.'));
 		}
-		else if (isNode(b, '.') == 0){
+		if (isNode(b, '.') == 0){
 			insertBack(b, makeNode('.'));
 		}
 	// 자연수일 경우 . 추가
@@ -40,26 +40,30 @@ pList add(pList a , pList b ) {
    		int b_int_len = b_point - 1;
    		int a_dec_len = a_count - a_point;
    		int b_dec_len = b_count - b_point;
-   		while ( a_int_len != b_int_len) // int 자리수 맞추기
-		{
-	   		if (a_int_len > b_int_len) {
-		   		insertFront(b, makeNode('0'));
-		   		b_int_len++;
-			}
-	   		else if (a_int_len < b_int_len) {
-		   		insertFront(a, makeNode('0'));
-		   		a_int_len++;
+		if (a_int_len != b_int_len) {
+   			while ( a_int_len != b_int_len) // int 자리수 맞추기
+			{
+	   			if (a_int_len > b_int_len) {
+		   			insertFront(b, makeNode('0'));
+		   			b_int_len++;
+				}
+	   			else if (a_int_len < b_int_len) {
+		   			insertFront(a, makeNode('0'));
+		   			a_int_len++;
+				}
 			}
 		}
-   		while (a_dec_len != b_dec_len) // dec 자리수 맞추기
-		{
-	   		if (a_dec_len > b_dec_len) {
-		   		insertBack(b, makeNode('0'));
-		   		b_dec_len++;
-			}
-	   		else if (a_dec_len < b_dec_len) {
-		   		insertBack(a, makeNode('0'));
-		   		a_dec_len++;
+		if (a_dec_len != b_dec_len) {
+   			while (a_dec_len != b_dec_len) // dec 자리수 맞추기
+			{
+	   			if (a_dec_len > b_dec_len) {
+		   			insertBack(b, makeNode('0'));
+		   			b_dec_len++;
+				}
+	   			else if (a_dec_len < b_dec_len) {
+		   			insertBack(a, makeNode('0'));
+		   			a_dec_len++;
+				}	
 			}
 		}
 		 // 999.9990 + 009.9999
@@ -101,8 +105,6 @@ pList add(pList a , pList b ) {
 		int answer_Pointer = searchNode(answer,'.');
 		insertMid(pst, answer_Pointer, makeNode('.'));
 		// . 삽입 clea	
-		printList(answer);
-		printList(pst);
 		if (isNode(pst, '1') == 0) {
 			removeZero(answer);
 			return answer;
@@ -209,7 +211,6 @@ pList minus(pList a , pList b ) {
 		insertBack(pst, makeNode('0'));
 		int answer_Pointer = searchNode(answer, '.');
 		insertMid(pst,answer_Pointer,makeNode('.'));
-		printList(answer);
 		if (isNode(pst, '1') == 0) {
 			removeZero(answer);
 			return answer;
@@ -235,8 +236,8 @@ pList minus(pList a , pList b ) {
 }
 
 int main(void) {
-	char expr1[] = "-1124.56";
-	char expr2[] = "129.999";
+	char expr1[] = "123.412";
+	char expr2[] = "123.312";
 	pList a = makeList();
 	pList b = makeList();
 	for (int i = 0; i<strlen(expr1);i++) {
