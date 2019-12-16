@@ -189,7 +189,17 @@ void insertMid(pList L,int index,pNode N) {
 	(L->count)++;
 }
 
-		// 1 2 3 4 5
+int compareList(pList a,pList b) {
+	pNode a_temp = a->head;
+	pNode b_temp = b->head;
+	while(a_temp != NULL) {
+		if(a_temp->data - b_temp->data > 0) return 1;
+		else if(a_temp->data - b_temp->data < 0) return 0;
+		a_temp = a_temp->next;
+		b_temp = b_temp->next;
+	}
+	return 1;
+}	
 
 void freeList(pList L) {
 	pNode tmp = L->head;
