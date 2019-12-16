@@ -104,6 +104,7 @@ pList add(pList a , pList b ) {
 		printList(answer);
 		printList(pst);
 		if (isNode(pst, '1') == 0) {
+			removeZero(answer);
 			return answer;
 		}
 		else if (isNode(pst, '1') == 1) {
@@ -112,12 +113,11 @@ pList add(pList a , pList b ) {
 	}
 
 	else if ( one == 1 && two == 0) { // add( a,-b )
-		deleteData(b,'-');
+		deleteHead(b);
 		return minus(a,b);
 	}
 	else if ( one == 0 && two == 1) { // add(-a,b)
-		deleteData(a, '-');
-		printf("-----------------\n");
+		deleteHead(a);
 		return minus(b,a);
 	}
 
@@ -174,10 +174,8 @@ pList minus(pList a , pList b ) {
 			}
 		}
 		if (compareList(a,b) == 0) {
-			minus(b, a);
+			insertFront(minus(b, a),makeNode('-'));
 		}
-		printList(a); //
-		printList(b); //
 		pList pst = makeList();
 		pList answer = makeList();
 		while (a->head != NULL) {
@@ -211,6 +209,7 @@ pList minus(pList a , pList b ) {
 		printList(pst);
 		printList(answer);
 		if (isNode(pst, '1') == 0) {
+			removeZero(answer);
 			return answer;
 		}
 		else if (isNode(pst, '1') == 1) {
@@ -218,23 +217,23 @@ pList minus(pList a , pList b ) {
 		}
 	}
 	else if ( one == 1 && two == 0) { // minus( a,-b )
-		deleteData(b, '-');
+		deleteHead(b);
 		return add(a, b);
 	}		
 	else if ( one == 0 && two == 1) { // minus(-a,b)
-		deleteData(a, '-');
+		deleteHead(a);
 		pList ans = add(a,b);
 		insertFront(ans,makeNode('-'));
 		return ans;
 	}
 	else if ( one == 0 && two == 0) { // minus( -a , +b )
-		deleteData(b, '-');
+		deleteHead(b);
 		return minus(a, b);
 	}
 }
 
 int main(void) {
-	char expr1[] = "1124.56";
+	char expr1[] = "-1124.56";
 	char expr2[] = "129.999";
 	pList a = makeList();
 	pList b = makeList();
@@ -246,7 +245,7 @@ int main(void) {
 	}
 	printList(a);
 	printList(b);
-	pList ans = minus(a,b);
+	pList ans = add(a,b);
 	printList(ans);
 	freeList(a);
 	freeList(b);

@@ -179,6 +179,17 @@ void removeSpace(pList L) {
 	}	
 }
 
+void removeZero(pList L) {
+	pNode temp = L->head;
+	pNode prev;
+	while (L->head->data == '0') {
+		deleteHead(L);
+	}
+	while (L->tail->data == '0') {
+		deleteTail(L);
+	}
+}
+
 void insertMid(pList L,int index,pNode N) {
 	pNode temp = L->head;
 	for (int i = 1; i<index; i++) {
