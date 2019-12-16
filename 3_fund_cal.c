@@ -70,7 +70,7 @@ pList add(pList a , pList b ) {
 		}
 		 // 999.9990 + 009.9999
 		while (a_head != '\0'){
-			if (a_head + b_head - 2 * '0' > 9) {
+			if (a_head - '0' + b_head - '0'  > 9) {
 				pList pst = makeList();
 				pList answer = makeList();
 				insertBack(pList pst, makeNode('1'));
@@ -78,7 +78,7 @@ pList add(pList a , pList b ) {
 				deleteHead(pList a);
 				deleteHead(pList b);
 			}
-			else if {
+			else if (a_head - '0' + b_head - '0'  < 10) {
 				insertBack(pList pst , makeNode('0'));
 				insertBack(pList answer, makeNode(a_head + b_head));
 				deleteHead(pList a);
@@ -170,9 +170,32 @@ pList minus(pList a , pList b ) {
 	}
 		//999.9 - 009.9
 		// a 와 b 중 누가 더 큰지 구별 해야함
-		while (b_head == a_head) {
-		}
 			// head 에서 따와서 빼기 
+	while ( a_head != '\0') {
+		if (a_head - b_head < 0) {
+			pList pst = makeList();
+			pList answer = makeList();
+			insertBack(pst,makeNode('1'));
+			insertBack(answer, makeNode(b_head - a_head + '0'));
+			deletHead(a);
+			deletHead(b);
+		}
+		else if (a_head - b_head > 0) {
+			pList pst = makeList();
+			pList answer = makeList();
+			insertBack(pst, makeNode('0'));
+			insertBack(answer, makeNode(a_head - b_head +'0'));
+			deletHead(a);
+			deletHead(b);
+		}
+		else if (a_head && b_head =='.') {
+			pList pst = makeList();
+			pList answer = makeList();
+			insertBack(pst, makeNode('.'));
+			deletHead(a);
+			deletHead(b);
+		}
+	}
 			// 영보다 작으면  내림수에 1 추가하는 것  만들기
 			// answer - 내림수 빼는 재귀 함수 호출
 			// 내림수 에 1 없을때 그냥 값 도출
